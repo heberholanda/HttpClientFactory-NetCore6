@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Named Clients", "Named Clie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "0 - Domain", "Domain\0 - Domain.csproj", "{2BE93191-DE9D-43A4-BABB-254CB92C5534}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typed Clients", "Typed Clients\Typed Clients.csproj", "{346B70F2-69FB-43F7-9B65-2ADC2BE3D3BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2BE93191-DE9D-43A4-BABB-254CB92C5534}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BE93191-DE9D-43A4-BABB-254CB92C5534}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BE93191-DE9D-43A4-BABB-254CB92C5534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{346B70F2-69FB-43F7-9B65-2ADC2BE3D3BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{346B70F2-69FB-43F7-9B65-2ADC2BE3D3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{346B70F2-69FB-43F7-9B65-2ADC2BE3D3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{346B70F2-69FB-43F7-9B65-2ADC2BE3D3BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

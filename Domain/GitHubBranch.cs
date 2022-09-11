@@ -5,10 +5,10 @@ namespace Domain
     public class GitHubBranch
     {
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonPropertyName("commit")]
-        public Commit Commit { get; set; }
+        public Commit? Commit { get; set; }
 
         [JsonPropertyName("protected")]
         public bool Protected { get; set; }
@@ -17,9 +17,9 @@ namespace Domain
     public class Commit
     {
         [JsonPropertyName("sha")]
-        public string Sha { get; set; }
+        public string? Sha { get; set; }
 
         [JsonPropertyName("url")]
-        public Uri url { get; set; }
+        public Uri? Url { get; set; }
     }
 }
