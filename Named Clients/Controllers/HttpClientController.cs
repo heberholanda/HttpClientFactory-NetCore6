@@ -1,9 +1,8 @@
 using Domain;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 using System.Text.Json;
 
-namespace HttpClientFactory.Controllers
+namespace Named_Clients.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -20,21 +19,13 @@ namespace HttpClientFactory.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "https://api.github.com/repos/dotnet/AspNetCore.Docs/branches")
-            {
-                Headers =
-                {
-                    { HeaderNames.Accept, "application/vnd.github.v3+json" },
-                    { HeaderNames.UserAgent, "HttpRequestsSample" }
-                }
-            };
-
-            var httpClient = _httpClientFactory.CreateClient();
-            var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
+            var httpClient = _httpClientFactory.CreateClient("GitHub");
+            var httpResponseMessage = await httpClient.GetAsync("repos/dotnet/AspNetCore.Docs/branches");
 
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
+                using var contentStream =
+                    await httpResponseMessage.Content.ReadAsStreamAsync();
 
                 _GitHubBranches = await JsonSerializer.DeserializeAsync<IEnumerable<GitHubBranch>>(contentStream);
             }
