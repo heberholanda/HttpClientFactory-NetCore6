@@ -8,6 +8,7 @@ builder.Services.AddControllers();
 
 // Register HttpClient
 builder.Services.AddHttpClient<GitHubService>();
+builder.Services.AddHttpClient<JsonPlaceholderService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

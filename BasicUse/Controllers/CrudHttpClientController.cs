@@ -50,7 +50,7 @@ namespace HttpClientFactory.Controllers
         {
             Post result = new();
 
-            string jsonPost = await Task.Run(() => JsonSerializer.Serialize(newPost));
+            string jsonPost = JsonSerializer.Serialize(newPost);
             var httpContent = new StringContent(jsonPost, Encoding.UTF8, "application/json");
 
             var httpClient = _httpClientFactory.CreateClient();
@@ -73,7 +73,7 @@ namespace HttpClientFactory.Controllers
 
             Post result = new();
 
-            string jsonPost = await Task.Run(() => JsonSerializer.Serialize(newPost));
+            string jsonPost = JsonSerializer.Serialize(newPost);
             var httpContent = new StringContent(jsonPost, Encoding.UTF8, "application/json");
 
             var httpClient = _httpClientFactory.CreateClient();

@@ -13,8 +13,7 @@ namespace Typed_Clients.Services
 
             _httpClient.BaseAddress = new Uri("https://api.github.com/");
 
-            // using Microsoft.Net.Http.Headers;
-            // The GitHub API requires two headers.
+            // Requires Headers
             _httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/vnd.github.v3+json");
             _httpClient.DefaultRequestHeaders.Add(HeaderNames.UserAgent, "HttpRequestsSample");
         }
