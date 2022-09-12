@@ -12,9 +12,17 @@ builder.Services.AddRefitClient<IGitHubClient>()
     {
         httpClient.BaseAddress = new Uri("https://api.github.com/");
 
-        // using Microsoft.Net.Http.Headers;
-        // The GitHub API requires two headers.
+        // Required headers
         httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept,    "application/vnd.github.v3+json");
+        httpClient.DefaultRequestHeaders.Add(HeaderNames.UserAgent, "HttpRequestsSample");
+    });
+builder.Services.AddRefitClient<IJsonPlaceholderClient>()
+    .ConfigureHttpClient(httpClient =>
+    {
+        httpClient.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
+
+        // Required headers
+        httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
         httpClient.DefaultRequestHeaders.Add(HeaderNames.UserAgent, "HttpRequestsSample");
     });
 
