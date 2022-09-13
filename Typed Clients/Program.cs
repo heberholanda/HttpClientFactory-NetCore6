@@ -11,8 +11,14 @@ builder.Services.AddControllers();
 // Middlewares
 builder.Services.AddTransient<ValidateHeaderHandler>();
 
+// Polly
+var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromMilliseconds(200));
+var longTimeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromMilliseconds(1000));
+
 // Register HttpClient
-builder.Services.AddHttpClient<GitHubService>();
+builder.Services.AddHttpClient<GitHubService>()
+    .AddPolicyHandler(httpRequestMessage =>
+        httpRequestMessage.Method == HttpMethod.Get ? timeoutPolicy : longTimeoutPolicy);
 
 builder.Services.AddHttpClient<JsonPlaceholderService>()
     .AddHttpMessageHandler<ValidateHeaderHandler>()
