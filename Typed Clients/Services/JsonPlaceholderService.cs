@@ -26,9 +26,10 @@ namespace Typed_Clients.Services
         public async Task<Post?> Post(Post post)
         {
             string jsonPost = JsonSerializer.Serialize(post);
-            var httpContent = new StringContent(jsonPost, Encoding.UTF8, "application/json");
+            var request = new HttpRequestMessage(HttpMethod.Post, "/posts");
+            request.Content = new StringContent(jsonPost, Encoding.UTF8, "application/json");
 
-            var httpResponseMessage = await _httpClient.PostAsync("/posts", httpContent);
+            var httpResponseMessage = await _httpClient.SendAsync(request);
 
             if (httpResponseMessage.IsSuccessStatusCode)
             {
