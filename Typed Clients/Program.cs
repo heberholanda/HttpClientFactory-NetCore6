@@ -1,5 +1,6 @@
 using Typed_clients.Middlewares;
 using Typed_Clients.Services;
+using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,9 @@ builder.Services.AddTransient<ValidateHeaderHandler>();
 builder.Services.AddHttpClient<GitHubService>();
 
 builder.Services.AddHttpClient<JsonPlaceholderService>()
-    .AddHttpMessageHandler<ValidateHeaderHandler>();
+    .AddHttpMessageHandler<ValidateHeaderHandler>()
+    .AddTransientHttpErrorPolicy(policyBuilder =>
+        policyBuilder.WaitAndRetryAsync(3, retryNumber => TimeSpan.FromMilliseconds(100)));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
