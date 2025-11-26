@@ -3,6 +3,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // Register HttpClient
+// Registers IHttpClientFactory for basic HttpClient usage
+// Allows creating HttpClient instances in a managed way, avoiding socket exhaustion issues
 builder.Services.AddHttpClient();
 
 builder.Services.AddControllers();

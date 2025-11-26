@@ -9,17 +9,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Middlewares
+// Registers the custom handler as a transient service (new instance per request)
 builder.Services.AddTransient<ValidateHeaderHandler>();
 
 // Polly
+// Defines resilience policies using Polly for failure handling and timeouts
+// Short timeout policy for fast operations (200ms)
 var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromMilliseconds(200));
+// Long timeout policy for longer operations (1000ms)
 var longTimeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromMilliseconds(1000));
 
 // Register HttpClient
+// Typed Client for GitHubService with conditional timeout policy
+// Applies short timeout (200ms) for GET requests and long timeout (1000ms) for other operations
 builder.Services.AddHttpClient<GitHubService>()
     .AddPolicyHandler(httpRequestMessage =>
         httpRequestMessage.Method == HttpMethod.Get ? timeoutPolicy : longTimeoutPolicy);
 
+// Typed Client for JsonPlaceholderService with custom handler and retry policy
+// AddHttpMessageHandler: adds a custom handler for header validation
+// AddTransientHttpErrorPolicy: retry policy that attempts 3 times with 100ms interval between attempts
 builder.Services.AddHttpClient<JsonPlaceholderService>()
     .AddHttpMessageHandler<ValidateHeaderHandler>()
     .AddTransientHttpErrorPolicy(policyBuilder =>

@@ -5,11 +5,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // Register HttpClient
+// Registers a named HttpClient "GitHub" with specific configurations
+// Named Clients allow having multiple HTTP clients with different configurations in the same application
 builder.Services.AddHttpClient("GitHub", httpClient =>
 {
+    // Defines the base address for all requests made with this client
     httpClient.BaseAddress = new Uri("https://api.github.com/");
 
     // Required Headers
+    // Mandatory headers for communication with GitHub API
     httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept,    "application/vnd.github.v3+json");
     httpClient.DefaultRequestHeaders.Add(HeaderNames.UserAgent, "HttpRequestsSample");
 });

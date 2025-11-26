@@ -6,6 +6,11 @@ using System.Text.Json;
 
 namespace Named_Clients.Controllers
 {
+    /// <summary>
+    /// Controller that demonstrates CRUD operations using Named Clients
+    /// Note: This example uses the "GitHub" client but makes requests to JSONPlaceholder
+    /// This demonstrates that even when using a Named Client, you can override the base URL
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class CrudHttpClientController : ControllerBase
@@ -20,9 +25,14 @@ namespace Named_Clients.Controllers
             BaseUrl = "https://jsonplaceholder.typicode.com";
         }
 
+        /// <summary>
+        /// Fetches all posts using Named Client
+        /// Demonstrates that an absolute URL overrides the named client's BaseAddress
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            // Creates a request with full URL, which overrides the "GitHub" client's BaseAddress
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, $"{BaseUrl}/posts")
             {
                 Headers =
@@ -32,6 +42,7 @@ namespace Named_Clients.Controllers
                 }
             };
 
+            // Uses the named "GitHub" client but with a different URL than configured
             var httpClient = _httpClientFactory.CreateClient("GitHub");
             var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
 
@@ -45,6 +56,9 @@ namespace Named_Clients.Controllers
             return Ok(_Posts);
         }
 
+        /// <summary>
+        /// Creates a new post
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Post(Post newPost)
         {
@@ -66,6 +80,9 @@ namespace Named_Clients.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Updates an existing post
+        /// </summary>
         [HttpPut]
         public async Task<IActionResult> Put(Post newPost)
         {
@@ -89,6 +106,9 @@ namespace Named_Clients.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Removes a post
+        /// </summary>
         [HttpDelete]
         public async Task<IActionResult> Delete(int id = 2)
         {
